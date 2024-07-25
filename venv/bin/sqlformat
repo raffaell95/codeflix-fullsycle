@@ -1,4 +1,4 @@
-#!/Users/rafaelribeiro/Documents/codeflix-catalog-admin/venv/bin/python
+#!/Users/rafaelribeiro/Documents/codeflix-fullsycle/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
