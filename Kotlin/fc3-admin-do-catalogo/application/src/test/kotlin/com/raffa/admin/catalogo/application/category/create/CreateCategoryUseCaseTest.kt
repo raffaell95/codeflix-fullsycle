@@ -57,8 +57,8 @@ class CreateCategoryUseCaseTest {
 
         val notification = useCase.execute(aCommand).left
 
-      // Assertions.assertEquals(expectedErrorCount, notification.getErrors().size)
-      // Assertions.assertEquals(expectedErrorMessage, notification.firstError().message)
+      Assertions.assertEquals(expectedErrorCount, notification.getErrors().size)
+      Assertions.assertEquals(expectedErrorMessage, notification.firstError().message)
 
         verify(categoryGateway, times(0)).create(any())
     }

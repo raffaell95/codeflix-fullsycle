@@ -1,6 +1,7 @@
 package com.raffa.admin.catalogo.application.category.update
 
 import category.CategoryGateway
+import com.raffa.admin.catalogo.application.category.create.CreateCategoryCommand
 import com.raffa.admin.catalogo.domain.category.Category
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.extension.ExtendWith
@@ -57,5 +58,26 @@ class UpdateCategoryUseCaseTest {
                     aUpdatedCategory.deletedAt == null
         })
 
+    }
+
+    @Test
+    fun givenAInvalidName_whenCallsUpdateCategory_thenShouldReturnDomainException(){
+        val aCategory = Category.newCategory("Film", null, true)
+
+        val expectedId = aCategory.anId
+        val expectedName: String = null ?: "  "
+        val expectedDescription = "A categoria mais assistida"
+        val expectedIsActive = true
+        val expectedErrorMessage = "'name' should not be null or blank"
+        val expectedErrorCount = 1
+
+        val aCommand = UpdateCategoryCommand.with(expectedId.getValue(), expectedName, expectedDescription, expectedIsActive)
+
+        val notification = useCase.execute(aCommand).left
+
+        // Assertions.assertEquals(expectedErrorCount, notification.getErrors().size)
+        // Assertions.assertEquals(expectedErrorMessage, notification.firstError().message)
+
+        verify(categoryGateway, times(0)).create(any())
     }
 }
