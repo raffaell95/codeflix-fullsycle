@@ -85,8 +85,55 @@ class TestEquality:
             pass
 
         common_id = uuid4()
-        category = Genre(name="Filme", id=common_id)
+        genre = Genre(name="Filme", id=common_id)
         dummy = Dummy()
         dummy.id = common_id
 
-        assert category != dummy
+        assert genre != dummy
+
+class TestChangeName:
+
+    def test_change_name(self):
+        genre = Genre(name="Romance")
+        genre.change_name("Terror")
+
+        assert genre.name == "Terror"
+    
+    def test_when_name_is_empty(self):
+        genre = Genre(name="Romance")
+
+        with pytest.raises(ValueError, match="name cannot be empty"):
+            genre.change_name("")
+
+class TestAddCategory:
+    def test_add_category_to_genre(self):
+        genre = Genre(name="Romance")
+        category_id = uuid4()
+
+        assert category_id not in genre.categories
+        genre.add_category(category_id)
+        assert category_id in genre.categories
+
+    def test_can_add_multiple_categories(self):
+        genre = Genre(name="Romance")
+        category_1 = uuid4()
+        category_2 = uuid4()
+
+        genre.add_category(category_1)
+        genre.add_category(category_2)
+    
+        assert category_1 in genre.categories
+        assert category_2 in genre.categories
+        assert genre.categories == {
+            category_1,
+            category_2
+        }
+
+class TestRemoveCategory:
+    def test_remove_category_from_genre(self):
+        category_id = uuid4()
+        genre = Genre(name="Romance", categories={category_id})
+
+        genre.remove_category(category_id)
+        assert category_id not in genre.categories
+        assert genre.categories == set()
