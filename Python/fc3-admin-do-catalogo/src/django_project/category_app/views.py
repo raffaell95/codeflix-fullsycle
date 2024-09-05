@@ -10,8 +10,8 @@ from core.category.application.use_cases.delete_category import DeleteCategory, 
 from core.category.application.use_cases.exceptions import CategoryNotFound
 from core.category.application.use_cases.get_category import GetCategory, GetCategoryRequest
 from core.category.application.use_cases.update_category import UpdateCategory, UpdateCategoryRequest
-from django_project.category_app.repository import DjangoORMCategoryRepository
-from django_project.category_app.serializers import CreateCategoryRequestSerializer, CreateCategoryResponseSerializer, DeleteCategoryRequestSerializer, ListCategoryResponseSerializer, RetrieveCategoryRequestSerializer, RetrieveCategoryResponseSerializer, UpdateCategoryRequestSerializer
+from src.django_project.category_app.repository import DjangoORMCategoryRepository
+from src.django_project.category_app.serializers import CreateCategoryRequestSerializer, CreateCategoryResponseSerializer, DeleteCategoryRequestSerializer, ListCategoryResponseSerializer, RetrieveCategoryRequestSerializer, RetrieveCategoryResponseSerializer, UpdateCategoryRequestSerializer
 from src.core.category.application.use_cases.list_category import ListCategory, ListCategoryRequest
 
 # Create your views here.

@@ -5,7 +5,7 @@ from src.core.category.domain.category_repository import CategoryRepository
 from src.core.category.infra.in_memory_category_repository import InMemoryCategoryRepository
 from src.core.genre.application.use_cases.create_genre import CreateGenre
 from src.core.genre.infra.in_memory_category_repository import InMemoryGenreRepository
-from django_project.category_app.models import Category
+from src.django_project.category_app.models import Category
 
 
 @pytest.fixture
