@@ -31,4 +31,4 @@ class TestDeleteGenre:
         with pytest.raises(GenreNotFound, match="Genre with id .* not found"):
             use_case.execute(input=DeleteGenre.Input(id=uuid.uuid4()))
 
-        # mock_genre_repository.delete.assert_not_called()
+        mock_genre_repository.delete.assert_not_called()
