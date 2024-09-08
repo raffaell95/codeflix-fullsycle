@@ -1,20 +1,22 @@
 from dataclasses import dataclass, field
 from uuid import UUID
 
+from src.core.category.domain.category_repository import CategoryRepository
+from src.core.genre.domain.genre_repository import GenreRepository
 from src.core.genre.application.use_cases.exception import InvalidGenre, RelatedCategoriesNotFound
 from src.core.genre.domain.genre import Genre
 
 
 class CreateGenre:
-    def __init__(self, repository, category_repository):
+    def __init__(self, repository: GenreRepository, category_repository: CategoryRepository):
         self.repository = repository
         self.category_repository = category_repository
 
     @dataclass
     class Input:
         name: str
-        category_ids: set[UUID] = field(default_factory=set)
         is_active: bool = True
+        categories: set[UUID] = field(default_factory=set)
     
     @dataclass
     class Output:
@@ -22,9 +24,9 @@ class CreateGenre:
 
     def execute(self, input: Input):
         category_ids = {category.id for category in self.category_repository.list()}
-        if not input.category_ids.issubset(category_ids):
+        if not input.categories.issubset(category_ids):
             raise RelatedCategoriesNotFound(
-                f"Categories not found: {input.category_ids - category_ids}"
+                f"Categories not found: {input.categories - category_ids}"
             )
         
         
@@ -32,7 +34,7 @@ class CreateGenre:
             genre = Genre(
                 name=input.name,
                 is_active=input.is_active,
-                categories=input.category_ids
+                categories=input.categories
             )
         except ValueError as e:
             raise InvalidGenre(str(e))
